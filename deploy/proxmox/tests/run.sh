@@ -542,6 +542,13 @@ got="$( (
   test_port
 ) )"
 assert_eq "8123" "$got" "test_port reads dev/.env.test"
+# restart must recreate containers (compose `up`), not `compose restart`: that would ignore edits to .env.test
+printf '#!/bin/sh\necho "test-env.sh $*" >>"$STUB_LOG"\n' >"$SLEEPOVERR_DIR/src/dev/test-env.sh"
+: >"$STUB_LOG"
+bash "$CTL" restart >"$out" 2>&1
+assert_rc 0 $? "restart in the test profile"
+assert_contains "$STUB_LOG" "test-env.sh up"
+assert_not_contains "$STUB_LOG" "test-env.sh restart"
 rm -f "$SLEEPOVERR_CONF"
 
 section "ctl: unknown command and help"

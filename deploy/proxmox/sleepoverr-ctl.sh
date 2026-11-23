@@ -522,7 +522,9 @@ cmd_logs() {
 
 cmd_restart() {
   load_conf
-  if is_test; then te restart; return; fi
+  # `docker compose restart` keeps the old container, so edits to dev/.env.test (IGDB keys, the RomM
+  # token) would not apply. `up -d` recreates the containers whose configuration changed.
+  if is_test; then te up; return; fi
   compose up -d --force-recreate app
   wait_healthy 180
 }
