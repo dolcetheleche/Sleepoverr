@@ -4,11 +4,11 @@ from dataclasses import dataclass
 
 import httpx
 
+from app.core.config import GITHUB_REPO
 from app.services.cache import CacheBackend, get_cache
 
 logger = logging.getLogger(__name__)
 
-GITHUB_REPO = "wwwescape/videogametrackarr"
 _RELEASES_LATEST_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 _RELEASES_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases?per_page=50"
 _CACHE_KEY = "version:latest_release"

@@ -11,6 +11,9 @@ REPO_ROOT = BACKEND_DIR.parent
 # used for files (the SQLite database, backup downloads).
 APP_NAME = "Sleepoverr"
 APP_SLUG = "sleepoverr"
+# The GitHub repo whose releases drive the update check and What's New
+# (app/services/version_service.py).
+GITHUB_REPO = "dolcetheleche/Sleepoverr"
 DEFAULT_SQLITE_PATH = BACKEND_DIR / "db" / f"{APP_SLUG}.db"
 UPLOADS_DIR = BACKEND_DIR / "uploads"
 # Curated product shots for HardwareReferenceEntry rows — checked into the repo (unlike

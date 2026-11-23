@@ -13,7 +13,7 @@ def _release(version: str) -> Release:
         tag_name=f"v{version}",
         name=f"v{version}",
         body=f"## ✨ New: Things in {version}",
-        html_url=f"https://github.com/wwwescape/videogametrackarr/releases/tag/v{version}",
+        html_url=f"https://github.com/dolcetheleche/Sleepoverr/releases/tag/v{version}",
         published_at="2026-11-02T00:00:00Z",
     )
 
@@ -84,7 +84,7 @@ async def test_at_most_ten_releases(monkeypatch):
 
 @respx.mock
 async def test_get_releases_leaves_out_drafts_and_prereleases_and_caches():
-    route = respx.get("https://api.github.com/repos/wwwescape/videogametrackarr/releases?per_page=50").mock(
+    route = respx.get("https://api.github.com/repos/dolcetheleche/Sleepoverr/releases?per_page=50").mock(
         return_value=httpx.Response(
             200,
             json=[
@@ -105,7 +105,7 @@ async def test_get_releases_leaves_out_drafts_and_prereleases_and_caches():
 
 @respx.mock
 async def test_get_releases_returns_none_when_github_fails():
-    respx.get("https://api.github.com/repos/wwwescape/videogametrackarr/releases?per_page=50").mock(
+    respx.get("https://api.github.com/repos/dolcetheleche/Sleepoverr/releases?per_page=50").mock(
         return_value=httpx.Response(503)
     )
 
@@ -126,7 +126,7 @@ def test_whats_new_shows_once_then_marked_seen(auth_client, db_session, monkeypa
     assert first["currentVersion"] == "2.7.0"
     assert [release["version"] for release in first["releases"]] == ["2.7.0"]
     assert first["releases"][0]["body"] == "## ✨ New: Things in 2.7.0"
-    assert first["releaseUrl"] == "https://github.com/wwwescape/videogametrackarr/releases/tag/v2.7.0"
+    assert first["releaseUrl"] == "https://github.com/dolcetheleche/Sleepoverr/releases/tag/v2.7.0"
 
     assert auth_client.post("/api/version/whats-new/seen").status_code == 204
     db_session.expire_all()
