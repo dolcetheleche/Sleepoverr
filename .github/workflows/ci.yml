@@ -106,3 +106,17 @@ jobs:
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  # Proxmox installer (deploy/proxmox): lint plus tests that run both scripts against fake
+  # pct/pveam/pvesh/pvesm/docker commands. Needs no Proxmox or Docker.
+  proxmox-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Shellcheck
+        run: shellcheck -x deploy/proxmox/sleepoverr.sh deploy/proxmox/sleepoverr-ctl.sh deploy/proxmox/tests/run.sh
+
+      - name: Test
+        run: bash deploy/proxmox/tests/run.sh
