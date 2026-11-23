@@ -118,10 +118,17 @@ require_storage() { # require_storage CONTENT NAME VARIABLE
   fi
 }
 
+# The host is a Debian system, so dpkg names its architecture (amd64, arm64). pveam lists templates
+# for several architectures at once; picking one for another architecture fails at container start
+# with "Exec format error".
+host_arch() { printf '%s' "${SLEEPOVERR_ARCH:-$(dpkg --print-architecture 2>/dev/null || echo amd64)}"; }
+
 pick_template() {
-  local os tmpl
+  local os tmpl arch
+  arch="$(host_arch)"
   for os in debian-13-standard debian-12-standard; do
-    tmpl="$(pveam available --section system 2>/dev/null | awk -v p="$os" '$2 ~ "^" p {print $2}' | sort -V | tail -n 1)"
+    tmpl="$(pveam available --section system 2>/dev/null |
+      awk -v p="$os" -v a="_${arch}.tar" '$2 ~ "^" p && index($2, a) {print $2}' | sort -V | tail -n 1)"
     if [[ -n $tmpl ]]; then
       printf '%s' "$tmpl"
       return 0
@@ -180,7 +187,7 @@ gather_settings() {
 ensure_template() {
   local tmpl
   run pveam update >/dev/null 2>&1 || true
-  tmpl="$(pick_template)" || die "No Debian 12/13 container template is available (pveam available)."
+  tmpl="$(pick_template)" || die "No Debian 12/13 container template for $(host_arch) is available (pveam available --section system)."
   if ! pveam list "$CT_TEMPLATE_STORAGE" 2>/dev/null | awk '{print $1}' | grep -q "/${tmpl}\$"; then
     info "Downloading template $tmpl..."
     run pveam download "$CT_TEMPLATE_STORAGE" "$tmpl"

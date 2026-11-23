@@ -110,7 +110,9 @@ echo "pveam $*" >>"$STUB_LOG"
 case "$1" in
   available)
     echo "system          debian-12-standard_12.7-1_amd64.tar.zst"
+    echo "system          debian-12-standard_12.7-1_arm64.tar.zst"
     echo "system          debian-13-standard_13.1-1_amd64.tar.zst"
+    echo "system          debian-13-standard_13.6-1_arm64.tar.zst"
     echo "system          ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
     ;;
   list) [ -f "$STUB_DIR/template-present" ] && echo "local:vztmpl/debian-13-standard_13.1-1_amd64.tar.zst 120MB" ;;
@@ -146,6 +148,7 @@ exit 0
 EOF
 chmod +x "$BIN"/*
 export PATH="$BIN:$PATH"
+export SLEEPOVERR_ARCH=amd64
 
 reset_stub() {
   rm -rf "${STUB:?}"/* "$STUB_LOG"
@@ -187,6 +190,20 @@ assert_contains "$STUB_DIR/pushed-sleepoverr-install.env" "TZ=Europe/Lisbon"
 assert_not_contains "$STUB_DIR/pushed-sleepoverr-install.env" "ROMM"
 assert_not_contains "$STUB_LOG" "IGDB_CLIENT_SECRET" # secrets travel in the pushed file, not on a command line
 assert_contains "$out" "192.168.1.77"
+
+section "host: the template matches the host architecture (never the other one)"
+assert_not_contains "$STUB_LOG" "arm64"
+reset_stub
+SLEEPOVERR_ARCH=arm64 SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" bash "$HOST" install --test-env -y >"$out" 2>&1
+assert_rc 0 $? "arm64 host install"
+assert_contains "$STUB_LOG" "pveam download local debian-13-standard_13.6-1_arm64.tar.zst"
+assert_not_contains "$STUB_LOG" "_amd64"
+reset_stub
+SLEEPOVERR_ARCH=riscv64 SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" bash "$HOST" install --test-env -y >"$out" 2>&1
+rc=$?
+if [[ $rc -ne 0 ]]; then pass; else fail "an architecture without templates should fail"; fi
+assert_contains "$out" "for riscv64"
+assert_not_contains "$STUB_LOG" "pct create"
 
 section "host: refuses an ID that is already used"
 reset_stub
