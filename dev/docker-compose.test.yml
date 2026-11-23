@@ -1,0 +1,147 @@
+# Sleepoverr TEST environment - see dev/README.md.
+#
+#   dev/test-env.sh init       # once: creates dev/.env.test with random secrets + placeholder library
+#   dev/test-env.sh up         # sleepoverr + mock-romm
+#   dev/test-env.sh up-real    # ... plus a real, throwaway RomM (profile "real-romm")
+#
+# Always run with `--env-file dev/.env.test` (test-env.sh does this for you) so the ${...}
+# values below are filled from that file rather than from a stray dev/.env.
+#
+# The fixed project name keeps every container, network and volume prefixed with
+# "sleepoverr-test", so this never touches a production `sleepoverr` or RomM stack.
+name: sleepoverr-test
+
+services:
+  sleepoverr:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: sleepoverr:test
+    ports:
+      - "${SLEEPOVERR_PORT:-8000}:8000"
+    env_file:
+      - .env.test
+    environment:
+      # Not read by the app yet - reserved for the RomM sync module (later phase). Defaults
+      # point at the mock; set ROMM_URL / ROMM_API_TOKEN in .env.test to use the real-romm
+      # profile (http://romm:8080) or your own RomM instead.
+      ROMM_URL: ${ROMM_URL:-http://mock-romm:8080}
+      ROMM_API_TOKEN: ${ROMM_API_TOKEN:-${MOCK_ROMM_CLIENT_TOKEN}}
+    volumes:
+      # Paths match DEFAULT_SQLITE_PATH / UPLOADS_DIR in backend/app/core/config.py.
+      - sleepoverr-test-data:/app/backend/db
+      - sleepoverr-test-uploads:/app/backend/uploads
+    healthcheck:
+      # Real health route: GET /healthz (backend/app/api/routes/health.py).
+      test:
+        - CMD
+        - python
+        - -c
+        - "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=5).status == 200 else 1)"
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+    depends_on:
+      mock-romm:
+        condition: service_healthy
+    restart: unless-stopped
+
+  mock-romm:
+    build:
+      context: ./mock-romm
+    image: sleepoverr-mock-romm:test
+    ports:
+      - "${MOCK_ROMM_PORT:-8081}:8080"
+    environment:
+      MOCK_ROMM_USER: ${MOCK_ROMM_USER:-admin}
+      MOCK_ROMM_PASSWORD: ${MOCK_ROMM_PASSWORD:-admin}
+      # If empty the mock generates one and prints it to its log.
+      MOCK_ROMM_CLIENT_TOKEN: ${MOCK_ROMM_CLIENT_TOKEN:-}
+      MOCK_ROMM_JWT_SECRET: ${MOCK_ROMM_JWT_SECRET:-}
+    volumes:
+      # Edit fixtures (or drop in roms.resolved.json from resolve_igdb_ids.py) and
+      # `dev/test-env.sh restart` - no image rebuild needed.
+      - ./mock-romm/fixtures:/srv/mock-romm/fixtures:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import sys, urllib.request; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/api/heartbeat', timeout=4).status == 200 else 1)"
+      interval: 15s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------------------
+  # Profile "real-romm": a throwaway, real RomM scanning the placeholder library.
+  # Mirrors RomM's reference compose (examples/docker-compose.example.yml at tag 4.9.2,
+  # which is what docs.romm.app/4.9.2/getting-started/quick-start/ shows), with these
+  # deliberate differences:
+  #   * no container_name (so it cannot clash with a real `romm` / `romm-db` container),
+  #   * host port ${ROMM_PORT_TEST:-8082} instead of 80, library mounted read-only,
+  #   * assets/config in named volumes instead of host paths,
+  #   * secrets/passwords come from .env.test, IGDB credentials are optional pass-through.
+  # The current RomM image runs Redis/Valkey internally (hence the redis-data volume);
+  # the reference compose has no separate cache service.
+  # ---------------------------------------------------------------------------------------
+  romm:
+    image: ${ROMM_IMAGE:-rommapp/romm:latest}
+    profiles: ["real-romm"]
+    restart: unless-stopped
+    environment:
+      DB_HOST: romm-db
+      DB_NAME: romm # Should match MARIADB_DATABASE in romm-db
+      DB_USER: romm-user # Should match MARIADB_USER in romm-db
+      DB_PASSWD: ${ROMM_DB_PASSWORD:?set ROMM_DB_PASSWORD in dev/.env.test (dev/test-env.sh init)}
+      ROMM_AUTH_SECRET_KEY: ${ROMM_AUTH_SECRET_KEY:?set ROMM_AUTH_SECRET_KEY in dev/.env.test (dev/test-env.sh init)}
+      # Optional metadata providers - leave empty for an offline test library.
+      IGDB_CLIENT_ID: ${IGDB_CLIENT_ID:-}
+      IGDB_CLIENT_SECRET: ${IGDB_CLIENT_SECRET:-}
+      SCREENSCRAPER_USER: ${SCREENSCRAPER_USER:-}
+      SCREENSCRAPER_PASSWORD: ${SCREENSCRAPER_PASSWORD:-}
+      RETROACHIEVEMENTS_API_KEY: ${RETROACHIEVEMENTS_API_KEY:-}
+      STEAMGRIDDB_API_KEY: ${STEAMGRIDDB_API_KEY:-}
+      HASHEOUS_API_ENABLED: ${HASHEOUS_API_ENABLED:-true}
+    volumes:
+      - romm-resources:/romm/resources # Resources fetched from metadata providers (covers, screenshots, ...)
+      - romm-redis-data:/redis-data # Cached data for background tasks
+      - ./data/library:/romm/library:ro # Placeholder library from dev/seed/make_placeholder_roms.py
+      - romm-assets:/romm/assets # Uploaded saves, states, etc.
+      - romm-config:/romm/config # Optional config.yml
+    ports:
+      - "${ROMM_PORT_TEST:-8082}:8080"
+    depends_on:
+      romm-db:
+        condition: service_healthy
+        restart: true
+
+  romm-db:
+    image: ${ROMM_DB_IMAGE:-mariadb:latest}
+    profiles: ["real-romm"]
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${ROMM_DB_ROOT_PASSWORD:?set ROMM_DB_ROOT_PASSWORD in dev/.env.test (dev/test-env.sh init)}
+      MARIADB_DATABASE: romm
+      MARIADB_USER: romm-user
+      MARIADB_PASSWORD: ${ROMM_DB_PASSWORD:?set ROMM_DB_PASSWORD in dev/.env.test (dev/test-env.sh init)}
+    volumes:
+      - romm-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 30s
+      start_interval: 10s # needs Docker Engine 25+; remove this line on older engines
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  sleepoverr-test-data:
+  sleepoverr-test-uploads:
+  romm-resources:
+  romm-redis-data:
+  romm-assets:
+  romm-config:
+  romm-mysql-data:

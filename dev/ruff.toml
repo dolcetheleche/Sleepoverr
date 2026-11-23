@@ -1,0 +1,11 @@
+# Lint/format settings for the test-environment tooling under dev/ (mirrors backend/pyproject.toml).
+line-length = 120
+target-version = "py312"
+
+[lint]
+select = ["E", "F", "I", "UP", "B"]
+# FastAPI's dependency-injection pattern is `param: T = Depends(...)` by design.
+ignore = ["B008"]
+
+[lint.isort]
+known-first-party = ["mock_romm", "resolve_igdb_ids"]
