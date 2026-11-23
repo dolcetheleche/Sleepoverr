@@ -199,7 +199,12 @@ create_ct() {
     --unprivileged 1 --features nesting=1,keyctl=1 --onboot 1 --ostype debian \
     --tags "sleepoverr;${PROFILE}" \
     --description "Sleepoverr (${PROFILE}) - created by deploy/proxmox/sleepoverr.sh. Update: re-run the script with 'update ${CT_ID}'."
-  run pct start "$CT_ID"
+  if ! run pct start "$CT_ID"; then
+    die "Container $CT_ID was created but did not start; it is left in place. Find out why:
+       pct start $CT_ID --debug ; grep -iE 'error|fail|denied' /tmp/lxc-$CT_ID.log | head -30
+     Then either fix it and start it, or remove it and run the installer again:
+       pct destroy $CT_ID"
+  fi
 }
 
 wait_for_network() {

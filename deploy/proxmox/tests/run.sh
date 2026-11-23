@@ -74,6 +74,7 @@ case "$1" in
   push) cp "$3" "$STUB_DIR/pushed-$(basename "$4")" ;;
   listsnapshot) cat "$STUB_DIR/snapshots" 2>/dev/null ;;
   snapshot) [ -f "$STUB_DIR/snapshot-fails" ] && exit 1 ;;
+  start) [ -f "$STUB_DIR/start-fails" ] && exit 1 ;;
   exec)
     shift 2
     [ "$1" = "--" ] && shift
@@ -237,6 +238,16 @@ SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" CT_TEMPLATE_STORAGE=nope bash "$HOST" insta
 rc=$?
 if [[ $rc -ne 0 ]]; then pass; else fail "an unknown template storage should be rejected"; fi
 assert_not_contains "$STUB_LOG" "pct create"
+
+section "host: a container that fails to start is reported with debug steps and nothing is installed"
+reset_stub
+touch "$STUB_DIR/start-fails"
+SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" bash "$HOST" install --test-env -y >"$out" 2>&1
+rc=$?
+if [[ $rc -ne 0 ]]; then pass; else fail "a failed start should fail the install"; fi
+assert_contains "$out" "did not start"
+assert_contains "$out" "pct start 1000 --debug"
+assert_not_contains "$STUB_LOG" "pct push"
 
 section "host: --dry-run changes nothing"
 reset_stub
