@@ -1,0 +1,14 @@
+# Standalone config for the mock RomM server. Having its own [tool.pytest.ini_options]
+# here makes pytest use this directory as rootdir, so backend/pyproject.toml's
+# `--cov=app` addopts never apply when running `pytest dev/mock-romm`.
+[project]
+name = "sleepoverr-mock-romm"
+version = "1.0.0"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+
+# Ruff settings for everything under dev/ live in dev/ruff.toml.
