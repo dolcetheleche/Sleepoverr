@@ -119,9 +119,9 @@ describe("HardwarePage", () => {
   });
 
   it("restores the session's status and filters, shows them as chips and sends them", () => {
-    window.sessionStorage.setItem("vgt.view.hardware.status", JSON.stringify("owned"));
-    window.sessionStorage.setItem("vgt.view.hardware.devices.manufacturerIds", JSON.stringify([1]));
-    window.sessionStorage.setItem("vgt.view.hardware.accessories.typeIds", JSON.stringify([20]));
+    window.sessionStorage.setItem("sleepoverr.view.hardware.status", JSON.stringify("owned"));
+    window.sessionStorage.setItem("sleepoverr.view.hardware.devices.manufacturerIds", JSON.stringify([1]));
+    window.sessionStorage.setItem("sleepoverr.view.hardware.accessories.typeIds", JSON.stringify([20]));
     renderPage();
 
     expect(screen.getByText("Owned")).toBeInTheDocument();
@@ -134,18 +134,18 @@ describe("HardwarePage", () => {
   });
 
   it("removes a filter from its chip and forgets it", async () => {
-    window.sessionStorage.setItem("vgt.view.hardware.devices.manufacturerIds", JSON.stringify([1, 2]));
+    window.sessionStorage.setItem("sleepoverr.view.hardware.devices.manufacturerIds", JSON.stringify([1, 2]));
     const user = renderPage();
 
     await user.click(screen.getByLabelText("Remove filter Devices: Sony"));
 
     expect(screen.queryByText("Devices: Sony")).not.toBeInTheDocument();
     expect(screen.getByText("Devices: Nintendo")).toBeInTheDocument();
-    expect(window.sessionStorage.getItem("vgt.view.hardware.devices.manufacturerIds")).toBe(JSON.stringify([2]));
+    expect(window.sessionStorage.getItem("sleepoverr.view.hardware.devices.manufacturerIds")).toBe(JSON.stringify([2]));
   });
 
   it("sets the status from the Filter dialog and clears every filter", async () => {
-    window.sessionStorage.setItem("vgt.view.hardware.accessories.platformIds", JSON.stringify([30]));
+    window.sessionStorage.setItem("sleepoverr.view.hardware.accessories.platformIds", JSON.stringify([30]));
     const user = renderPage();
 
     await user.click(screen.getByRole("button", { name: "Filter" }));
@@ -167,7 +167,7 @@ describe("HardwarePage", () => {
 
     expect(sectionNames("accessories")).toEqual(["DualSense", "DualShock 4", "Access"]);
     expect(sectionNames("devices")).toEqual(["PlayStation 4", "PlayStation 5"]);
-    expect(window.sessionStorage.getItem("vgt.view.hardware.sortBy")).toBe(
+    expect(window.sessionStorage.getItem("sleepoverr.view.hardware.sortBy")).toBe(
       JSON.stringify({ field: "release_date", direction: "desc" })
     );
 

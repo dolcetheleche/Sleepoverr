@@ -28,9 +28,9 @@ const ColorModeContext = createContext<ColorModeContextValue>({
 
 export const useColorMode = () => useContext(ColorModeContext);
 
-const MODE_STORAGE_KEY = "vgt.colorMode";
-const CONTRAST_STORAGE_KEY = "vgt.contrast";
-const ACCENT_STORAGE_KEY = "vgt.accentColor";
+const MODE_STORAGE_KEY = "sleepoverr.colorMode";
+const CONTRAST_STORAGE_KEY = "sleepoverr.contrast";
+const ACCENT_STORAGE_KEY = "sleepoverr.accentColor";
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 

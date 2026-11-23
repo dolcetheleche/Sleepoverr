@@ -16,7 +16,7 @@ export const DEFAULT_LANGUAGE = "en";
 
 const SUPPORTED_CODES = new Set(SUPPORTED_LANGUAGES.map((option) => option.code));
 
-const LANGUAGE_STORAGE_KEY = "vgt.language";
+const LANGUAGE_STORAGE_KEY = "sleepoverr.language";
 
 function detectBrowserLanguage(): string | null {
   const prefix = navigator.language?.split("-")[0];

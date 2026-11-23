@@ -15,9 +15,9 @@ pip install -r requirements-dev.txt
 
 ## Database
 
-Defaults to a local SQLite file at `backend/db/videogametrackarr.db` if `DATABASE_URL` isn't
+Defaults to a local SQLite file at `backend/db/sleepoverr.db` if `DATABASE_URL` isn't
 set. For Postgres, set `DATABASE_URL` (e.g. in the repo-root `.env`) to something like
-`postgresql+psycopg://user:password@localhost:5432/videogametrackarr`.
+`postgresql+psycopg://user:password@localhost:5432/sleepoverr`.
 
 Apply migrations:
 

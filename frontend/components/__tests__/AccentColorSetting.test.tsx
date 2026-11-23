@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ColorModeProvider } from "../../theme/ColorModeProvider";
 import AccentColorSetting from "../AccentColorSetting";
 
-const STORAGE_KEY = "vgt.accentColor";
+const STORAGE_KEY = "sleepoverr.accentColor";
 
 function renderSetting(syncThemeColorMeta?: boolean) {
   return render(

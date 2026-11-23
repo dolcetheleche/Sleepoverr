@@ -19,7 +19,7 @@ Track every pack.
 
 - **Toys to Life** in the sidebar
   - nested detail
-- Fixed #42, see https://example.com/more and [the README](https://github.com/wwwescape/videogametrackarr#readme)
+- Fixed #42, see https://example.com/more and [the README](https://github.com/dolcetheleche/Sleepoverr#readme)
   continued on the next line
 - [bad](javascript:alert(1)) stays text`;
 
@@ -38,17 +38,17 @@ describe("parseMarkdown", () => {
 
 describe("MarkdownText", () => {
   it("links only http(s) addresses and issue numbers", () => {
-    render(<MarkdownText text={NOTES} repoUrl="https://github.com/wwwescape/videogametrackarr" />);
+    render(<MarkdownText text={NOTES} repoUrl="https://github.com/dolcetheleche/Sleepoverr" />);
 
     expect(screen.getByRole("heading", { name: "✨ New: Toys to Life" })).toBeInTheDocument();
     expect(screen.getByText("Toys to Life", { selector: "strong" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "#42" })).toHaveAttribute(
       "href",
-      "https://github.com/wwwescape/videogametrackarr/issues/42"
+      "https://github.com/dolcetheleche/Sleepoverr/issues/42"
     );
     expect(screen.getByRole("link", { name: "the README" })).toHaveAttribute(
       "href",
-      "https://github.com/wwwescape/videogametrackarr#readme"
+      "https://github.com/dolcetheleche/Sleepoverr#readme"
     );
     expect(screen.getByRole("link", { name: "https://example.com/more" })).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "bad" })).toBeNull();
@@ -75,7 +75,7 @@ describe("WhatsNewDialog", () => {
     render(<WhatsNewDialog />);
 
     expect(screen.getByRole("dialog", { name: /What's New/ })).toBeInTheDocument();
-    expect(screen.getByText("VideoGameTrackarr was updated to v2.7.0.")).toBeInTheDocument();
+    expect(screen.getByText("Sleepoverr was updated to v2.7.0.")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "v2.7.0" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "v2.6.1" })).toBeInTheDocument();
     expect(screen.getByText("Fixed a thing")).toBeInTheDocument();

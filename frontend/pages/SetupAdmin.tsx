@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../appName";
 import { useSetupAdmin } from "../hooks/useAuth";
 
 interface SetupAdminProps {
@@ -39,7 +40,7 @@ const SetupAdmin = ({ onDone }: SetupAdminProps) => {
   return (
     <>
       <Typography variant="h5" component="h1" gutterBottom>
-        {t("auth.brand")}
+        {APP_NAME}
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
         {t("auth.setupAdmin.subtitle")}

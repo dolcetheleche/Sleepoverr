@@ -115,14 +115,14 @@ describe("GogSyncPage", { timeout: 20_000 }, () => {
     syncWishlist.mockResolvedValue({ synced: 1, failed: 0, failures: [] });
   });
 
-  it("has no playtime columns: Name, GOG Status, VGT Status and Actions", () => {
+  it("has no playtime columns: Name, GOG Status, Sleepoverr Status and Actions", () => {
     entries = [entry(1, "The Witcher 3", "new")];
     renderPage();
 
     const head = within(screen.getAllByRole("rowgroup")[0]);
     expect(head.getByText("Name")).toBeInTheDocument();
     expect(head.getByText("GOG Status")).toBeInTheDocument();
-    expect(head.getByText("VGT Status")).toBeInTheDocument();
+    expect(head.getByText("Sleepoverr Status")).toBeInTheDocument();
     expect(head.getByText("Actions")).toBeInTheDocument();
     expect(screen.queryByText(/Playtime/)).not.toBeInTheDocument();
     expect(screen.queryByText("Steam Status")).not.toBeInTheDocument();
@@ -264,7 +264,7 @@ describe("GogSyncPage", { timeout: 20_000 }, () => {
     expect(screen.getByRole("checkbox", { name: "Wanted Game" })).toBeEnabled();
   });
 
-  it("syncs a wishlist row to the VGT wishlist after confirming", async () => {
+  it("syncs a wishlist row to the Sleepoverr wishlist after confirming", async () => {
     wishlistEntries = [wish(2, "Wanted Game", "new")];
     renderPage();
 

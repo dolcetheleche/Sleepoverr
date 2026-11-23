@@ -28,7 +28,7 @@ const StoreRegionContext = createContext<StoreRegionContextValue>({
 
 export const useStoreRegion = () => useContext(StoreRegionContext);
 
-const STORE_REGION_STORAGE_KEY = "vgt.storeRegion";
+const STORE_REGION_STORAGE_KEY = "sleepoverr.storeRegion";
 
 // Storage can be missing or throw (private windows, blocked site data); the setting then
 // just falls back to Automatic for this visit.

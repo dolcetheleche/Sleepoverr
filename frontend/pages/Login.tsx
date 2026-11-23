@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../appName";
 import { useLogin, useSetupStatus } from "../hooks/useAuth";
 import SetupAdmin from "./SetupAdmin";
 
@@ -33,7 +34,7 @@ const LoginForm = () => {
   return (
     <>
       <Typography variant="h5" component="h1" gutterBottom>
-        {t("auth.brand")}
+        {APP_NAME}
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
         {t("auth.login.subtitle")}

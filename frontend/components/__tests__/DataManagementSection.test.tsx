@@ -42,7 +42,7 @@ describe("DataManagementSection", () => {
 
     const input = document.querySelector('input[type="file"]') as HTMLInputElement;
     expect(input.accept).toContain(".zip");
-    const zip = new File(["PK"], "videogametrackarr-full-backup.zip", { type: "application/zip" });
+    const zip = new File(["PK"], "sleepoverr-full-backup.zip", { type: "application/zip" });
     await user.upload(input, zip);
     await user.click(screen.getByRole("button", { name: "Replace my library" }));
 

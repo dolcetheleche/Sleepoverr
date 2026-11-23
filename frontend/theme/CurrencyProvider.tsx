@@ -16,7 +16,7 @@ const CurrencyContext = createContext<CurrencyContextValue>({
 
 export const useCurrency = () => useContext(CurrencyContext);
 
-const CURRENCY_STORAGE_KEY = "vgt.currency";
+const CURRENCY_STORAGE_KEY = "sleepoverr.currency";
 const SUPPORTED_CODES = new Set(SUPPORTED_CURRENCIES.map((option) => option.code));
 
 function readStoredCurrency(): string {

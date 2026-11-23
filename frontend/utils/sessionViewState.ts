@@ -2,7 +2,7 @@
 // session only (sessionStorage: this tab, until it's closed), so leaving a page and coming
 // back restores it as it was — without anything leaking into another tab or a later visit.
 // See hooks/useSessionState.ts.
-const PREFIX = "vgt.view.";
+const PREFIX = "sleepoverr.view.";
 
 export function readSessionValue<T>(key: string, fallback: T): T {
   try {

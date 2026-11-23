@@ -1,8 +1,8 @@
 import { clearOfflineCache } from "../offline/queryPersistence";
 import { clearSessionViewState } from "../utils/sessionViewState";
 
-const ACCESS_TOKEN_KEY = "vgt.accessToken";
-const REFRESH_TOKEN_KEY = "vgt.refreshToken";
+const ACCESS_TOKEN_KEY = "sleepoverr.accessToken";
+const REFRESH_TOKEN_KEY = "sleepoverr.refreshToken";
 
 // localStorage, not an httpOnly cookie — the backend (M3) returns tokens in the JSON
 // response body rather than setting cookies, so this is the matching client-side half.

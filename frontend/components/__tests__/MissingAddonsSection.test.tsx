@@ -84,7 +84,7 @@ describe("MissingAddonsSection", () => {
   });
 
   it("narrows each game's add-ons by ownership, dropping games left with none", () => {
-    window.sessionStorage.setItem("vgt.view.missingAddons.ownershipStatuses", JSON.stringify(["wishlisted"]));
+    window.sessionStorage.setItem("sleepoverr.view.missingAddons.ownershipStatuses", JSON.stringify(["wishlisted"]));
     renderPage();
 
     expect(screen.getByRole("button", { name: "Colosseum" })).toBeInTheDocument();

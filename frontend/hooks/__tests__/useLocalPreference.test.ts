@@ -19,7 +19,7 @@ function memoryStorage(): Storage {
 describe("useLocalPreference", () => {
   afterEach(() => vi.unstubAllGlobals());
 
-  it("remembers a value in this browser under the vgt.pref prefix", () => {
+  it("remembers a value in this browser under the sleepoverr.pref prefix", () => {
     vi.stubGlobal("localStorage", memoryStorage());
     const first = renderHook(() => useLocalPreference("games.cardSize", 170));
     act(() => first.result.current[1](220));
@@ -27,7 +27,7 @@ describe("useLocalPreference", () => {
 
     const second = renderHook(() => useLocalPreference("games.cardSize", 170));
     expect(second.result.current[0]).toBe(220);
-    expect(localStorage.getItem("vgt.pref.games.cardSize")).toBe("220");
+    expect(localStorage.getItem("sleepoverr.pref.games.cardSize")).toBe("220");
   });
 
   it("still works, without remembering, when storage throws", () => {

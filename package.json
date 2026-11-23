@@ -1,7 +1,7 @@
 {
-  "name": "videogametrackarr",
+  "name": "sleepoverr",
   "version": "2.15.2",
-  "description": "A self-hosted web application to track your video game collection",
+  "description": "Self-hosted game journal for the games you stayed up too late playing, and the friends you played them with. Syncs with your RomM library.",
   "private": true,
   "workspaces": [
     "frontend"

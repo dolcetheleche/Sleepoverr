@@ -56,17 +56,17 @@ describe("CurrencyProvider", () => {
   });
 
   it("uses the account's currency over this browser's", () => {
-    localStorage.setItem("vgt.currency", "GBP");
+    localStorage.setItem("sleepoverr.currency", "GBP");
     user = { id: 1, username: "admin", currency: "EUR", overviewLayout: null, screensaverIntervalSeconds: null, screensaverShowOwned: true, screensaverShowWishlist: false, screensaverIncludeCustom: true };
     renderProvider();
 
     expect(screen.getByTestId("currency")).toHaveTextContent("EUR");
-    expect(localStorage.getItem("vgt.currency")).toBe("EUR");
+    expect(localStorage.getItem("sleepoverr.currency")).toBe("EUR");
     expect(updatePreferences).not.toHaveBeenCalled();
   });
 
   it("saves this browser's choice to an account that has none yet", async () => {
-    localStorage.setItem("vgt.currency", "GBP");
+    localStorage.setItem("sleepoverr.currency", "GBP");
     user = { id: 1, username: "admin", currency: null, overviewLayout: null, screensaverIntervalSeconds: null, screensaverShowOwned: true, screensaverShowWishlist: false, screensaverIncludeCustom: true };
     renderProvider();
 
@@ -91,7 +91,7 @@ describe("CurrencyProvider", () => {
 
     act(() => setCurrency("JPY"));
 
-    expect(localStorage.getItem("vgt.currency")).toBe("JPY");
+    expect(localStorage.getItem("sleepoverr.currency")).toBe("JPY");
     expect(updatePreferences).not.toHaveBeenCalled();
   });
 });

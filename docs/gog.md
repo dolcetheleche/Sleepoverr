@@ -7,14 +7,14 @@ goes on your Wishlist. GOG doesn't share playtime, so there's no playtime to bri
 
 ## Connecting your GOG account
 
-GOG has no API keys, so VGT signs in to your account the same way other GOG apps do (Heroic,
+GOG has no API keys, so Sleepoverr signs in to your account the same way other GOG apps do (Heroic,
 Minigalaxy, lgogdownloader):
 
 1. Open **Settings → Integrations → GOG** and click **Sign in to GOG**. GOG's sign-in opens in
    a popup.
 2. Sign in. GOG then shows a mostly blank page.
-3. Copy that page's whole address from the address bar and paste it into the field in VGT.
-   VGT connects straight away and closes the popup.
+3. Copy that page's whole address from the address bar and paste it into the field in Sleepoverr.
+   Sleepoverr connects straight away and closes the popup.
 
 Each address works only once. If connecting fails, sign in again and paste the new one.
 **Disconnect** forgets the sign-in; your GOG Sync list, ignores and links stay.
@@ -44,10 +44,10 @@ last GOG copy, is removed, when the library is reset, and when a backup is resto
 
 - **Your own account, for your own backups.** Installers are licensed to your GOG account.
   Only connect your own account, and never share the files.
-- **Unofficial sign-in.** GOG doesn't offer a public API for this. VGT uses the GOG Galaxy
+- **Unofficial sign-in.** GOG doesn't offer a public API for this. Sleepoverr uses the GOG Galaxy
   client's sign-in, like other third-party GOG apps, so GOG could change or block it at any
   time.
-- **The sign-in token is stored on the server.** It's kept in VGT's database as plain text,
+- **The sign-in token is stored on the server.** It's kept in Sleepoverr's database as plain text,
   never sent to the browser and never included in backups. Treat the database (and any copy
   of it) as sensitive, and use **Disconnect** if you stop using GOG Sync.
 - Behind a reverse proxy, long downloads to your device can hit its timeouts; raise them if

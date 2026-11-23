@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../appName";
 import { resolveImageUrl } from "../api/client";
 import type { ScreensaverGame } from "../api/types";
 import { useKeepAwake } from "../hooks/useKeepAwake";
@@ -503,7 +504,7 @@ const Screensaver = () => {
         }}
       >
         {body}
-        {/* Top left: VGT's badge, always there so whoever walks past knows what this is. It
+        {/* Top left: the app's badge, always there so whoever walks past knows what this is. It
             lets taps through to the cover. */}
         <Box
           data-testid="screensaver-brand"
@@ -536,7 +537,7 @@ const Screensaver = () => {
               textShadow: "0 1px 2px rgba(0, 0, 0, 0.6)",
             }}
           >
-            VideoGameTrackarr
+            {APP_NAME}
           </Typography>
         </Box>
         {/* Top right: the close button, shown on activity. */}

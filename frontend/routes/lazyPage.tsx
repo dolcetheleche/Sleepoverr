@@ -6,7 +6,7 @@ import type { ComponentType } from "react";
 // previous release can ask for a page file that release deleted; that reloads the app once
 // to pick up the new release instead of showing the error page.
 const pageLoaders: Array<() => Promise<unknown>> = [];
-export const RELOADED_FOR_UPDATE = "vgt-reloaded-for-update";
+export const RELOADED_FOR_UPDATE = "sleepoverr-reloaded-for-update";
 
 const storage = {
   get: (key: string) => {

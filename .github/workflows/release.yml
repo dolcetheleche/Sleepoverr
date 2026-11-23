@@ -15,6 +15,8 @@ on:
     tags:
       - "v*"
 
+# contents: write is for the GitHub Release created at the end; packages: write pushes the
+# image to GHCR with the built-in GITHUB_TOKEN (no registry secrets needed).
 permissions:
   contents: write
   packages: write
@@ -30,12 +32,12 @@ jobs:
         id: meta
         run: |
           version="${GITHUB_REF_NAME#v}"
-          # GHCR image names must be lowercase; this repo's owner/name aren't guaranteed to be.
-          ghcr_image="ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')"
-          dockerhub_image="docker.io/wwwescape/videogametrackarr"
+          # ghcr.io/<owner>/sleepoverr. GHCR image names must be lowercase; the owner's name
+          # isn't guaranteed to be.
+          owner="$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')"
+          ghcr_image="ghcr.io/${owner}/sleepoverr"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "ghcr_image=$ghcr_image" >> "$GITHUB_OUTPUT"
-          echo "dockerhub_image=$dockerhub_image" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -50,12 +52,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -68,8 +64,11 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.ghcr_image }}:${{ steps.meta.outputs.version }}
             ${{ steps.meta.outputs.ghcr_image }}:latest
-            ${{ steps.meta.outputs.dockerhub_image }}:${{ steps.meta.outputs.version }}
-            ${{ steps.meta.outputs.dockerhub_image }}:latest
+          # Links the GHCR package to this repo (its page, README and permissions).
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.title=Sleepoverr
+            org.opencontainers.image.licenses=GPL-3.0
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

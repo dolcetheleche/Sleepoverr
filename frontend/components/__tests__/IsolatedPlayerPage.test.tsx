@@ -57,7 +57,7 @@ describe("IsolatedPlayerPage", () => {
     const src = new URL(iframe.getAttribute("src") as string, "http://localhost");
     expect(src.searchParams.get("core")).toBe("dosbox_pure");
     expect(src.searchParams.get("threads")).toBe("1");
-    expect(document.title).toBe("Doom (DOS) · VideoGameTrackarr");
+    expect(document.title).toBe("Doom (DOS) · Sleepoverr");
   });
 
   it("closes the tab once the player has flushed its saves", async () => {

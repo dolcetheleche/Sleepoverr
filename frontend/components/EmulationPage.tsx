@@ -160,7 +160,7 @@ const BiosCard = ({ system, onDelete }: BiosCardProps) => {
 };
 
 // Settings → Emulation: the BIOS files some emulator cores need (Sega CD, Saturn, 3DO, Lynx,
-// …), uploaded by the user from their own consoles — VideoGameTrackarr never ships or
+// …), uploaded by the user from their own consoles — Sleepoverr never ships or
 // downloads them.
 const EmulationPage = () => {
   const { t } = useTranslation();

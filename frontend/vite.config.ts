@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { APP_DESCRIPTION, APP_NAME } from "./appName";
 
 // Dev-server twin of backend/app/main.py's isolation_headers_for: the DOS/PSP player tab
 // (player-isolated.html) and the player iframe it loads with threads=1 must be cross-origin
@@ -32,9 +33,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icon-master.svg"],
       manifest: {
-        name: "VideoGameTrackarr",
-        short_name: "VGT",
-        description: "Track, organize, and explore your video game collection.",
+        name: APP_NAME,
+        short_name: APP_NAME,
+        description: APP_DESCRIPTION,
         theme_color: "#7C4DFF",
         background_color: "#7C4DFF",
         display: "standalone",
