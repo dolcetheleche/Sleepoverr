@@ -223,6 +223,21 @@ rc=$?
 if [[ $rc -ne 0 ]]; then pass; else fail "non-numeric cores should fail"; fi
 assert_not_contains "$STUB_LOG" "pct create"
 
+section "host: a storage name that does not exist is rejected before anything is downloaded or created"
+reset_stub
+SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" CT_STORAGE=10 bash "$HOST" install --test-env -y >"$out" 2>&1
+rc=$?
+if [[ $rc -ne 0 ]]; then pass; else fail "CT_STORAGE=10 should be rejected"; fi
+assert_contains "$out" "'10' is not a storage"
+assert_contains "$out" "Available: local local-lvm"
+assert_not_contains "$STUB_LOG" "pveam download"
+assert_not_contains "$STUB_LOG" "pct create"
+reset_stub
+SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" CT_TEMPLATE_STORAGE=nope bash "$HOST" install --test-env -y >"$out" 2>&1
+rc=$?
+if [[ $rc -ne 0 ]]; then pass; else fail "an unknown template storage should be rejected"; fi
+assert_not_contains "$STUB_LOG" "pct create"
+
 section "host: --dry-run changes nothing"
 reset_stub
 SLEEPOVERR_CTL_FILE="$T/ctl-copy.sh" bash "$HOST" install --test-env -y --dry-run >"$out" 2>&1

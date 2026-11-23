@@ -93,10 +93,14 @@ need_pve() {
   fi
 }
 
+list_storages() { # list_storages CONTENT: names of active storages that can hold that content type
+  pvesm status --content "$1" 2>/dev/null | awk 'NR>1 && $3=="active" {print $1}'
+}
+
 pick_storage() { # pick_storage CONTENT PREFERRED...
   local content="$1" avail pref
   shift
-  avail="$(pvesm status --content "$content" 2>/dev/null | awk 'NR>1 && $3=="active" {print $1}')"
+  avail="$(list_storages "$content")"
   for pref in "$@"; do
     if grep -qx "$pref" <<<"$avail"; then
       printf '%s' "$pref"
@@ -104,6 +108,14 @@ pick_storage() { # pick_storage CONTENT PREFERRED...
     fi
   done
   head -n 1 <<<"$avail"
+}
+
+# Fails with the list of valid names, so a typo or a number typed at the wrong prompt is caught
+# before anything is downloaded or created.
+require_storage() { # require_storage CONTENT NAME VARIABLE
+  if ! list_storages "$1" | grep -qx -- "$2"; then
+    die "'$2' is not a storage that can hold '$1' on this host (set $3). Available: $(list_storages "$1" | tr '\n' ' ')"
+  fi
 }
 
 pick_template() {
@@ -133,8 +145,8 @@ gather_settings() {
   ask CT_RAM "RAM in MB" "$def_ram"
   ask CT_SWAP "Swap in MB" 512
   ask CT_DISK "Disk size in GB" 20
-  ask CT_STORAGE "Storage for the disk" "$(pick_storage rootdir local-lvm local-zfs local)"
-  ask CT_TEMPLATE_STORAGE "Storage holding templates" "$(pick_storage vztmpl local)"
+  ask CT_STORAGE "Storage name for the disk (one of: $(list_storages rootdir | tr '\n' ' '))" "$(pick_storage rootdir local-lvm local-zfs local)"
+  ask CT_TEMPLATE_STORAGE "Storage name holding templates (one of: $(list_storages vztmpl | tr '\n' ' '))" "$(pick_storage vztmpl local)"
   ask CT_BRIDGE "Network bridge" vmbr0
   ask CT_IP "IP address (dhcp or CIDR like 192.168.1.50/24)" dhcp
   # shellcheck disable=SC2153  # CT_IP is assigned by the ask call above
@@ -146,6 +158,8 @@ gather_settings() {
   ((CT_ID >= 100)) || die "Container IDs start at 100."
   [[ -n $CT_STORAGE ]] || die "No storage that can hold container disks was found; set CT_STORAGE."
   [[ -n $CT_TEMPLATE_STORAGE ]] || die "No storage for templates was found; set CT_TEMPLATE_STORAGE."
+  require_storage rootdir "$CT_STORAGE" CT_STORAGE
+  require_storage vztmpl "$CT_TEMPLATE_STORAGE" CT_TEMPLATE_STORAGE
   if [[ $CT_IP != dhcp ]]; then
     [[ $CT_IP =~ ^[0-9.]+/[0-9]+$ ]] || die "CT_IP must be 'dhcp' or an address like 192.168.1.50/24."
     [[ -n ${CT_GW:-} ]] || die "A static IP needs CT_GW (the gateway)."
