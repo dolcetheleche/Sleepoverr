@@ -1,3 +1,7 @@
+# Fixed project name, so the container and named volumes are sleepoverr / sleepoverr_db-data
+# etc. no matter which folder this file sits in.
+name: sleepoverr
+
 services:
   app:
     # Pulls the published image by default. To build from source instead (e.g. testing a
@@ -5,8 +9,8 @@ services:
     #   build:
     #     context: .
     #     dockerfile: Dockerfile
-    image: wwwescape/videogametrackarr:latest
-    container_name: videogametrackarr
+    image: ghcr.io/dolcetheleche/sleepoverr:latest
+    container_name: sleepoverr
     ports:
       - "${APP_PORT:-8000}:8000"
     env_file:

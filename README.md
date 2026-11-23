@@ -104,7 +104,7 @@ The published Docker image bundles the frontend and backend into a single contai
 ```yaml
 services:
   app:
-    image: wwwescape/videogametrackarr:latest
+    image: ghcr.io/dolcetheleche/sleepoverr:latest
     container_name: sleepoverr
     ports:
       - "8000:8000"
@@ -233,9 +233,11 @@ git tag v1.26.0
 git push origin v1.26.0
 ```
 
-The tag push publishes the Docker image to GHCR and Docker Hub (tagged with the version and
-`latest`) and creates a GitHub Release. Publishing to Docker Hub needs the `DOCKERHUB_USERNAME`
-and `DOCKERHUB_TOKEN` repository secrets.
+The tag push publishes the Docker image to GitHub Container Registry as
+`ghcr.io/<owner>/sleepoverr` (tagged with the version and `latest`) and creates a GitHub
+Release. It signs in with the workflow's built-in `GITHUB_TOKEN`, so no registry secrets are
+needed. A new GHCR package starts private: make it public under the package's settings if
+others should be able to pull it without signing in.
 
 ### Project layout
 
