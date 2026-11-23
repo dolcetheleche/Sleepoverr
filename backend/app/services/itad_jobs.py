@@ -42,7 +42,7 @@ async def _refresh(db: Session, report_progress: Callable[[int, int], None]) -> 
     settings = get_settings()
     if not settings.itad_api_key:
         raise ItadNotConfiguredError(
-            "ITAD isn't configured yet — set ITAD_API_KEY in .env and restart VideoGameTrackarr."
+            "ITAD isn't configured yet — set ITAD_API_KEY in .env and restart Sleepoverr."
         )
 
     client = ItadClient(api_key=settings.itad_api_key)

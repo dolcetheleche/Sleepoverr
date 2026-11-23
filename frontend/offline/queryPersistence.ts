@@ -3,7 +3,7 @@ import type { PersistQueryClientOptions } from "@tanstack/query-persist-client-c
 import { defaultShouldDehydrateQuery } from "@tanstack/react-query";
 import { createStore, del, get, set } from "idb-keyval";
 
-const idbStore = createStore("videogametrackarr-offline", "query-cache");
+const idbStore = createStore("sleepoverr-offline", "query-cache");
 
 // idb-keyval's get/set/del are already string-in-string-out here (the persister only ever
 // stores its own serialized JSON string under one key), so this satisfies the
@@ -14,7 +14,7 @@ const idbAsyncStorage = {
   removeItem: (key: string) => del(key, idbStore),
 };
 
-const OFFLINE_CACHE_KEY = "vgt-offline-cache";
+const OFFLINE_CACHE_KEY = "sleepoverr-offline-cache";
 
 const persister = createAsyncStoragePersister({
   storage: idbAsyncStorage,

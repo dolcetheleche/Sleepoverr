@@ -107,7 +107,7 @@
     var url = input && typeof input === "object" && "url" in input ? input.url : input;
     if (isBlocked(url)) {
       return Promise.resolve(
-        new Response(null, { status: 404, statusText: "Blocked by VideoGameTrackarr" })
+        new Response(null, { status: 404, statusText: "Blocked by Sleepoverr" })
       );
     }
     return originalFetch(input, init);
@@ -281,7 +281,7 @@
         toParent({ type: "vgt:flushed" });
       }
     } catch (e) {
-      console.error("VideoGameTrackarr player:", e);
+      console.error("Sleepoverr player:", e);
       if (message.type === "vgt:flush") toParent({ type: "vgt:flushed" });
     }
   });
@@ -310,7 +310,7 @@
       loadEmulator();
     },
     function (error) {
-      console.error("VideoGameTrackarr player:", error);
+      console.error("Sleepoverr player:", error);
       fail("Couldn't load this system's BIOS files. Close the player and try again.");
     }
   );

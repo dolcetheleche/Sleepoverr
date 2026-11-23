@@ -7,7 +7,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 REPO_ROOT = BACKEND_DIR.parent
-DEFAULT_SQLITE_PATH = BACKEND_DIR / "db" / "videogametrackarr.db"
+# The app's name, in one place. APP_NAME is what people see; APP_SLUG is the lowercase form
+# used for files (the SQLite database, backup downloads).
+APP_NAME = "Sleepoverr"
+APP_SLUG = "sleepoverr"
+DEFAULT_SQLITE_PATH = BACKEND_DIR / "db" / f"{APP_SLUG}.db"
 UPLOADS_DIR = BACKEND_DIR / "uploads"
 # Curated product shots for HardwareReferenceEntry rows — checked into the repo (unlike
 # UPLOADS_DIR, which is gitignored runtime storage), one file per SKU. See the seed migration
@@ -22,7 +26,7 @@ class Settings(BaseSettings):
     # both local dev and the Docker Compose setup, which reads it from there too.
     model_config = SettingsConfigDict(env_file=str(REPO_ROOT / ".env"), extra="ignore", env_ignore_empty=True)
 
-    app_name: str = "VideoGameTrackarr API"
+    app_name: str = f"{APP_NAME} API"
     environment: str = "development"
     log_level: str = "INFO"
     database_url: str = f"sqlite:///{DEFAULT_SQLITE_PATH.as_posix()}"

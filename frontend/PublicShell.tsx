@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import { APP_NAME } from "./appName";
 import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeIcon from "@mui/icons-material/LightModeOutlined";
 import Box from "@mui/material/Box";
@@ -40,7 +41,7 @@ const PublicShell = () => {
       >
         <Box component="img" src="/icon-master.svg" alt="" sx={{ width: 30, height: 30 }} />
         <Typography variant="subtitle2" noWrap sx={{ display: { xs: "none", sm: "block" }, fontWeight: 650 }}>
-          VideoGameTrackarr
+          {APP_NAME}
         </Typography>
         <PublicSubNav />
         <Box sx={{ flexGrow: 1 }} />

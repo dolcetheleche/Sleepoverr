@@ -15,7 +15,7 @@ interface BaseGameAddonsHintProps {
   onOpenPicker: () => void;
 }
 
-const dismissedKey = (gameId: number) => `vgt.baseGameAddonsHint.dismissed.${gameId}`;
+const dismissedKey = (gameId: number) => `sleepoverr.baseGameAddonsHint.dismissed.${gameId}`;
 
 // Remembered per game in this browser only: a convenience, so storage failing (private
 // windows, blocked site data) just shows the hint again.

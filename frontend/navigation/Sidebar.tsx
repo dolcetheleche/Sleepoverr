@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../appName";
 import { useDashboardStats } from "../hooks/useDashboard";
 import { useHardwareStats } from "../hooks/useHardwareStats";
 import { useVersion } from "../hooks/useVersion";
@@ -167,7 +168,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
           noWrap
           sx={{ fontWeight: 650, fontSize: 14, letterSpacing: "-0.01em" }}
         >
-          VideoGameTrackarr
+          {APP_NAME}
         </Typography>
       </Box>
       <Box
@@ -222,7 +223,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
         variant="caption"
         sx={{ color: "vgt.text3", px: 2.25, py: 1.25, borderTop: 1, borderColor: "divider" }}
       >
-        {version?.currentVersion ? `v${version.currentVersion}` : "VideoGameTrackarr"}
+        {version?.currentVersion ? `v${version.currentVersion}` : APP_NAME}
       </Typography>
     </Box>
   );

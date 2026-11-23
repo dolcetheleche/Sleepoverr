@@ -23,7 +23,7 @@ function renderGrid(stateKey: string) {
 
 describe("CatalogIndexGrid remembered state", () => {
   it("restores this page's remembered search keyword, and only this page's", () => {
-    window.sessionStorage.setItem("vgt.view.collections.searchKeyword", JSON.stringify("zelda"));
+    window.sessionStorage.setItem("sleepoverr.view.collections.searchKeyword", JSON.stringify("zelda"));
 
     const { unmount } = renderGrid("collections");
     expect(screen.getByLabelText("Search collections")).toHaveValue("zelda");

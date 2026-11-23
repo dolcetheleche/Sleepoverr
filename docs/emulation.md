@@ -12,9 +12,9 @@ in the dialog can be replaced, downloaded back (its original file) or removed.
 device:
 
 - **Save states** — the player's Save State button stores a snapshot (with a screenshot) in
-  VGT, as many as you like; its Load State button opens a picker of them, and **Resume…** in
+  Sleepoverr, as many as you like; its Load State button opens a picker of them, and **Resume…** in
   the Play Game dialog starts the game from one. Delete old ones from either picker.
-- **In-game saves** — a game's own save (the battery save a cartridge would keep) syncs to VGT
+- **In-game saves** — a game's own save (the battery save a cartridge would keep) syncs to Sleepoverr
   automatically every minute and when you close the player, and is loaded back in the next
   time you play, on any browser.
 - Replacing or removing a ROM deletes its saves too (only that ROM's) — they only work with
@@ -31,20 +31,20 @@ device:
   Famicom Disk System need the console's own BIOS file (PlayStation and Saturn have a built-in
   fallback, but some games run better with the real one). Upload them once in **Settings →
   Emulation**, which lists the exact file names each system accepts and flags whether your
-  dump matches a known-good checksum. As with ROMs, dump them from consoles you own — VGT never
+  dump matches a known-good checksum. As with ROMs, dump them from consoles you own — Sleepoverr never
   downloads or includes BIOS files.
 - **DOS and PSP open in a new tab**. Their emulator cores need SharedArrayBuffer, which browsers
   only allow on a cross-origin-isolated page, so they play in a separate player page served
-  with `Cross-Origin-Opener-Policy`/`Cross-Origin-Embedder-Policy` headers (set by VGT itself;
+  with `Cross-Origin-Opener-Policy`/`Cross-Origin-Embedder-Policy` headers (set by Sleepoverr itself;
   a reverse proxy must pass them through unchanged). PSP also needs WebGL2. Saves work the same
   as in the in-page player; closing the tab directly (instead of the player's close button) can
   lose up to the last minute of in-game progress.
 - **Licenses**: the SNES (Snes9x), Genesis family and Sega CD (Genesis Plus GX), 32X (PicoDrive)
   and 3DO (Opera) cores are free to redistribute but for **non-commercial use only**; every
   bundled core and its license is listed on the About page.
-- **Bring your own files** — VGT never hosts, distributes, or helps find ROMs. Only upload
+- **Bring your own files** — Sleepoverr never hosts, distributes, or helps find ROMs. Only upload
   games you legally own.
-- **Size limit**: `ROM_MAX_UPLOAD_MB` in `.env` (default 2048). If you run VGT behind a
+- **Size limit**: `ROM_MAX_UPLOAD_MB` in `.env` (default 2048). If you run Sleepoverr behind a
   reverse proxy, raise its request body limit to match — Nginx's default is only 1 MB (see
   `docs/deployment/nginx.example.conf`).
 - ROMs and their saves are stored under `backend/uploads/roms/` (the same Docker volume as

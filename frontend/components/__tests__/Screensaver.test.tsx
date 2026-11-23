@@ -285,10 +285,10 @@ describe("Screensaver", () => {
     expect(refetch).toHaveBeenCalled();
   });
 
-  it("shows VGT's badge top left, letting taps through to the cover", () => {
+  it("shows the app's badge top left, letting taps through to the cover", () => {
     renderScreensaver();
     const brand = screen.getByTestId("screensaver-brand");
-    expect(brand).toHaveTextContent("VideoGameTrackarr");
+    expect(brand).toHaveTextContent("Sleepoverr");
     expect(brand.querySelector("img")).toHaveAttribute("src", "/icon-master.svg");
     const style = getComputedStyle(brand);
     expect(style.pointerEvents).toBe("none");

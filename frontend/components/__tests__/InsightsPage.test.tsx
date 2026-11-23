@@ -85,7 +85,7 @@ describe("InsightsPage", () => {
 
     await user.click(within(panel("By Play Status")).getByRole("button", { name: /Completed/ }));
     expect(screen.getByText("Games list")).toBeInTheDocument();
-    expect(window.sessionStorage.getItem("vgt.view.games.playStatuses")).toBe(JSON.stringify(["completed"]));
+    expect(window.sessionStorage.getItem("sleepoverr.view.games.playStatuses")).toBe(JSON.stringify(["completed"]));
   });
 
   it("links a platform row to Games filtered to it, when the platform is known", async () => {
@@ -95,7 +95,7 @@ describe("InsightsPage", () => {
     expect(within(platforms).queryByRole("button", { name: /Retired Console/ })).toBeNull();
     await user.click(within(platforms).getByRole("button", { name: /PlayStation 5/ }));
 
-    expect(window.sessionStorage.getItem("vgt.view.games.platformIds")).toBe(JSON.stringify([7]));
+    expect(window.sessionStorage.getItem("sleepoverr.view.games.platformIds")).toBe(JSON.stringify([7]));
   });
 
   it("shows hardware breakdowns, and says so when one is empty", () => {

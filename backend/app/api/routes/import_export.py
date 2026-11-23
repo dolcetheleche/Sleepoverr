@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from starlette.background import BackgroundTask
 
 from app.api.deps import get_current_user, get_db, get_session_factory
+from app.core.config import APP_SLUG
 from app.core.security import TokenError, TokenType, create_backup_download_token, decode_token
 from app.models.system import User
 from app.schemas.backup import FullBackupLinkRequest, FullBackupLinkResponse, RestoreStatusResponse
@@ -42,7 +43,7 @@ def export_backup(db: Session = Depends(get_db)) -> Response:
     return Response(
         content=backup_json,
         media_type="application/json",
-        headers={"Content-Disposition": 'attachment; filename="videogametrackarr-backup.json"'},
+        headers={"Content-Disposition": f'attachment; filename="{APP_SLUG}-backup.json"'},
     )
 
 
@@ -52,7 +53,7 @@ def _full_backup_response(db: Session, roms: bool, bios: bool, images: bool) -> 
     return FileResponse(
         path,
         media_type="application/zip",
-        filename="videogametrackarr-backup.zip",
+        filename=f"{APP_SLUG}-backup.zip",
         background=BackgroundTask(path.unlink, missing_ok=True),
     )
 
@@ -65,7 +66,7 @@ def create_full_backup_link(
     GB, too big to fetch into memory first. Which files go in rides along in the address."""
     token = create_backup_download_token(current_user.id)
     flags = f"roms={str(body.roms).lower()}&bios={str(body.bios).lower()}&images={str(body.images).lower()}"
-    return FullBackupLinkResponse(url=f"/api/export/backup/full/{token}/videogametrackarr-backup.zip?{flags}")
+    return FullBackupLinkResponse(url=f"/api/export/backup/full/{token}/{APP_SLUG}-backup.zip?{flags}")
 
 
 @download_router.get("/api/export/backup/full/{token}/{filename}")

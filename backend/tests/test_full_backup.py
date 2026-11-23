@@ -59,7 +59,7 @@ def _zip_backup(client, roms=True, bios=True, images=False):
     return client.get(url)
 
 
-def _restore_zip(client, data: bytes, name="videogametrackarr-backup.zip"):
+def _restore_zip(client, data: bytes, name="sleepoverr-backup.zip"):
     return client.post("/api/import/backup", files={"file": (name, io.BytesIO(data), "application/zip")})
 
 

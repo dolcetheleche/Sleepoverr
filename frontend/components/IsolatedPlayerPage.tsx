@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
+import { APP_NAME } from "../appName";
 import { createPlaySession } from "../api/library";
 import type { EmulatorSession } from "../api/types";
 import EmulatorPlayerDialog from "./EmulatorPlayerDialog";
@@ -33,7 +34,7 @@ const IsolatedPlayerPage = () => {
   const isolated = window.crossOriginIsolated === true;
 
   useEffect(() => {
-    document.title = title ? `${title} · VideoGameTrackarr` : "VideoGameTrackarr";
+    document.title = title ? `${title} · ${APP_NAME}` : APP_NAME;
   }, [title]);
 
   useEffect(() => {

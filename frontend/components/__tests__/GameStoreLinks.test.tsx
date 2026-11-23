@@ -98,7 +98,7 @@ describe("GameStoreLinks", () => {
   });
 
   it("points PlayStation and Xbox links at the chosen region's store, leaving Steam alone", () => {
-    window.localStorage.setItem("vgt.storeRegion", "IN");
+    window.localStorage.setItem("sleepoverr.storeRegion", "IN");
     renderSection();
 
     expect(linkHref("View on PlayStation Store")).toBe("https://store.playstation.com/en-in/concept/10012238");
@@ -109,7 +109,7 @@ describe("GameStoreLinks", () => {
   });
 
   it("lists only the links the game has, IGDB first", () => {
-    window.localStorage.setItem("vgt.storeRegion", "off");
+    window.localStorage.setItem("sleepoverr.storeRegion", "off");
     render(
       <StoreRegionProvider>
         <Links game={{ ...game, igdbUrl: "https://www.igdb.com/games/x", xboxStoreUrl: null }} />
@@ -120,7 +120,7 @@ describe("GameStoreLinks", () => {
   });
 
   it("keeps IGDB's links when store links are set not to change", () => {
-    window.localStorage.setItem("vgt.storeRegion", "off");
+    window.localStorage.setItem("sleepoverr.storeRegion", "off");
     renderSection();
 
     expect(linkHref("View on PlayStation Store")).toBe("https://store.playstation.com/en-us/concept/10012238");

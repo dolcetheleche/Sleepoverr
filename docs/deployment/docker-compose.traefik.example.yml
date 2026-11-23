@@ -15,10 +15,10 @@ services:
       - traefik
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.videogametrackarr.rule=Host(`your-domain.example`)"
-      - "traefik.http.routers.videogametrackarr.entrypoints=websecure"
-      - "traefik.http.routers.videogametrackarr.tls.certresolver=letsencrypt"
-      - "traefik.http.services.videogametrackarr.loadbalancer.server.port=8000"
+      - "traefik.http.routers.sleepoverr.rule=Host(`your-domain.example`)"
+      - "traefik.http.routers.sleepoverr.entrypoints=websecure"
+      - "traefik.http.routers.sleepoverr.tls.certresolver=letsencrypt"
+      - "traefik.http.services.sleepoverr.loadbalancer.server.port=8000"
 
 networks:
   traefik:

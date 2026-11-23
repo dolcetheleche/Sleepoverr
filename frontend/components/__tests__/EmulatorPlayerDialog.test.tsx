@@ -85,7 +85,7 @@ describe("EmulatorPlayerDialog save bridge", () => {
     await waitFor(() =>
       expect(posted).toContainEqual({
         type: "vgt:message",
-        text: "State saved to VideoGameTrackarr",
+        text: "State saved to Sleepoverr",
       })
     );
   });

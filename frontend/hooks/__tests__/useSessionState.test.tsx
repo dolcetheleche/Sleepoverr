@@ -15,7 +15,7 @@ describe("useSessionState", () => {
 
     act(() => result.current[1]([3, 5]));
     expect(result.current[0]).toEqual([3, 5]);
-    expect(window.sessionStorage.getItem("vgt.view.games.tagIds")).toBe("[3,5]");
+    expect(window.sessionStorage.getItem("sleepoverr.view.games.tagIds")).toBe("[3,5]");
     unmount();
 
     // Coming back to the page restores it.
@@ -31,7 +31,7 @@ describe("useSessionState", () => {
 
   it("switches to the new key's own value when the key changes", () => {
     window.sessionStorage.setItem(
-      "vgt.view.collection.zelda.searchKeyword",
+      "sleepoverr.view.collection.zelda.searchKeyword",
       JSON.stringify("link")
     );
     const { result, rerender } = renderHook(({ key }) => useSessionState(key, ""), {
@@ -42,14 +42,14 @@ describe("useSessionState", () => {
     rerender({ key: "collection.zelda.searchKeyword" });
     expect(result.current[0]).toBe("link");
     // The previous page's value was never written under the new key.
-    expect(window.sessionStorage.getItem("vgt.view.collection.mario.searchKeyword")).toBe(
+    expect(window.sessionStorage.getItem("sleepoverr.view.collection.mario.searchKeyword")).toBe(
       '"bowser"'
     );
-    expect(window.sessionStorage.getItem("vgt.view.collection.zelda.searchKeyword")).toBe('"link"');
+    expect(window.sessionStorage.getItem("sleepoverr.view.collection.zelda.searchKeyword")).toBe('"link"');
   });
 
   it("behaves like plain useState when storage is unavailable or holds bad data", () => {
-    window.sessionStorage.setItem("vgt.view.hardware.status", "{not json");
+    window.sessionStorage.setItem("sleepoverr.view.hardware.status", "{not json");
     const { result } = renderHook(() => useSessionState("hardware.status", "all"));
     expect(result.current[0]).toBe("all");
 
@@ -64,12 +64,12 @@ describe("useSessionState", () => {
     // tokenStorage uses the bare `localStorage` global, which newer Node versions (26+)
     // shadow with their own unavailable one even under jsdom — stub just what clear() needs.
     vi.stubGlobal("localStorage", { removeItem: vi.fn() });
-    window.sessionStorage.setItem("vgt.view.games.sort", JSON.stringify("name_desc"));
+    window.sessionStorage.setItem("sleepoverr.view.games.sort", JSON.stringify("name_desc"));
     window.sessionStorage.setItem("unrelated", "keep");
 
     tokenStorage.clear();
 
-    expect(window.sessionStorage.getItem("vgt.view.games.sort")).toBeNull();
+    expect(window.sessionStorage.getItem("sleepoverr.view.games.sort")).toBeNull();
     expect(window.sessionStorage.getItem("unrelated")).toBe("keep");
   });
 });

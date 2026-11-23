@@ -14,19 +14,19 @@ a scratch copy.
 
 1. Copy your real database to a scratch location (adjust paths for your OS):
    ```
-   cp backend/db/videogametrackarr.db /tmp/vgt-e2e-scratch.db
+   cp backend/db/sleepoverr.db /tmp/sleepoverr-e2e-scratch.db
    ```
 
 2. Create a throwaway admin account on that scratch copy:
    ```
    cd backend
-   DATABASE_URL="sqlite:////tmp/vgt-e2e-scratch.db" python -m scripts.create_admin --username e2e-test --password "<pick-something>"
+   DATABASE_URL="sqlite:////tmp/sleepoverr-e2e-scratch.db" python -m scripts.create_admin --username e2e-test --password "<pick-something>"
    ```
 
 3. Start the backend against the scratch copy (separate terminal):
    ```
    cd backend
-   DATABASE_URL="sqlite:////tmp/vgt-e2e-scratch.db" uvicorn app.main:app --port 8000
+   DATABASE_URL="sqlite:////tmp/sleepoverr-e2e-scratch.db" uvicorn app.main:app --port 8000
    ```
 
 4. Build and preview the frontend (separate terminal, from the repo root):

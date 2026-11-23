@@ -135,7 +135,7 @@ describe("Games list", () => {
 
     const row = screen.getByRole("row", { name: "Hollow Knight" });
     expect(within(row).getByText("Switch, PC")).toBeInTheDocument();
-    expect(localStorage.getItem("vgt.pref.games.view")).toBe(JSON.stringify("table"));
+    expect(localStorage.getItem("sleepoverr.pref.games.view")).toBe(JSON.stringify("table"));
   });
 
   it("sorts from the Sort menu", async () => {
@@ -158,7 +158,7 @@ describe("Games list", () => {
   });
 
   it("shows active filters as chips that can be removed one by one", async () => {
-    window.sessionStorage.setItem("vgt.view.games.playStatuses", JSON.stringify(["backlog", "playing"]));
+    window.sessionStorage.setItem("sleepoverr.view.games.playStatuses", JSON.stringify(["backlog", "playing"]));
     const { user } = renderList();
 
     expect(screen.getByRole("button", { name: "Filter" })).toHaveTextContent("2");

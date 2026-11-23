@@ -30,7 +30,7 @@ describe("PublicShell", () => {
     renderAt("/public/tok/hardware");
 
     const header = screen.getByRole("banner");
-    expect(within(header).getByText("VideoGameTrackarr")).toBeInTheDocument();
+    expect(within(header).getByText("Sleepoverr")).toBeInTheDocument();
     const nav = within(header).getByRole("navigation", { name: "Shared collection" });
     expect(within(nav).getByRole("link", { name: "Games" })).toHaveAttribute("href", "/public/tok/games");
     expect(within(nav).getByRole("link", { name: "Shelf" })).toHaveAttribute("href", "/public/tok/shelf");

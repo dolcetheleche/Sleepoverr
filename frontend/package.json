@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "2.15.2",
-  "description": "VideoGameTrackarr frontend (TypeScript, Vite, MUI, TanStack Query)",
+  "description": "Sleepoverr frontend (TypeScript, Vite, MUI, TanStack Query)",
   "private": true,
   "scripts": {
     "prestart": "node scripts/vendor-emulatorjs.mjs",

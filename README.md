@@ -1,20 +1,24 @@
 <p align="center">
-  <img src="frontend/public/icon-master.svg" alt="VideoGameTrackarr logo" width="120" />
+  <img src="frontend/public/icon-master.svg" alt="Sleepoverr logo" width="120" />
 </p>
 
-<h1 align="center">VideoGameTrackarr</h1>
-
-<p align="center">
-  A self-hosted web app for tracking your video game collection — what you own, what you want,
-  what you're playing, and how it's going — with Steam sync, wishlist sale alerts, and in-browser
-  play for the games you own.
-</p>
+<h1 align="center">Sleepoverr</h1>
 
 <p align="center">
-  <a href="https://github.com/wwwescape/VideoGameTrackarr/releases"><img src="https://img.shields.io/github/v/release/wwwescape/VideoGameTrackarr.svg?style=flat-square" alt="GitHub release" /></a>
-  <a href="https://github.com/wwwescape/VideoGameTrackarr/commits/master"><img src="https://img.shields.io/github/last-commit/wwwescape/VideoGameTrackarr.svg?style=flat-square" alt="GitHub last commit" /></a>
-  <a href="https://github.com/wwwescape/VideoGameTrackarr"><img src="https://img.shields.io/github/languages/code-size/wwwescape/VideoGameTrackarr.svg?color=red&style=flat-square" alt="GitHub code size" /></a>
+  Self-hosted game journal for the games you stayed up too late playing, and the friends you
+  played them with. Syncs with your RomM library. Fork of VideoGameTrackarr.
 </p>
+
+<p align="center">
+  <a href="https://github.com/dolcetheleche/Sleepoverr/releases"><img src="https://img.shields.io/github/v/release/dolcetheleche/Sleepoverr.svg?style=flat-square" alt="GitHub release" /></a>
+  <a href="https://github.com/dolcetheleche/Sleepoverr/commits/master"><img src="https://img.shields.io/github/last-commit/dolcetheleche/Sleepoverr.svg?style=flat-square" alt="GitHub last commit" /></a>
+  <a href="https://github.com/dolcetheleche/Sleepoverr"><img src="https://img.shields.io/github/languages/code-size/dolcetheleche/Sleepoverr.svg?color=red&style=flat-square" alt="GitHub code size" /></a>
+</p>
+
+> Forked from [VideoGameTrackarr](https://github.com/wwwescape/VideoGameTrackarr) by
+> [wwwescape](https://github.com/wwwescape) (GPL-3.0). Sleepoverr keeps everything upstream does
+> (tracking what you own, what you want, what you're playing and how it's going, with Steam
+> sync, wishlist sale alerts and in-browser play for the games you own) and builds on it.
 
 ## Screenshots
 
@@ -48,7 +52,7 @@
   standard retail cases (cartridge-only systems have none); turn a platform's cases on or
   off in **Settings → Game Cases**, where each preview opens large.
 - **Screensaver** (Labs) — a floating button that shows your game covers full screen, one
-  after another, with the VideoGameTrackarr badge in the corner; swipe to browse, tap a cover
+  after another, with the Sleepoverr badge in the corner; swipe to browse, tap a cover
   to open the game. Set the time per cover in **Settings → Screensaver**, and hide a game from
   its page, or many at once from the Games list. Handy on a wall-mounted tablet.
 - **Labs** — opt-in features that are still taking shape, off by default and switched on in
@@ -101,7 +105,7 @@ The published Docker image bundles the frontend and backend into a single contai
 services:
   app:
     image: wwwescape/videogametrackarr:latest
-    container_name: videogametrackarr
+    container_name: sleepoverr
     ports:
       - "8000:8000"
     env_file:
@@ -145,7 +149,7 @@ out in that release's notes.
 
 ### Installing the app
 
-VideoGameTrackarr can be installed like an app, with its own window and home-screen or desktop icon.
+Sleepoverr can be installed like an app, with its own window and home-screen or desktop icon.
 **Settings → General → App** has an **Install** button where the browser offers one (Chrome, Edge, Android),
 and says how otherwise (on an iPhone or iPad: Share → Add to Home Screen). Browsers only install
 apps opened over **HTTPS** (or on `localhost`): at a plain `http://` address such as
@@ -189,8 +193,8 @@ Requires [Git](https://git-scm.com/downloads), [Node.js 22+](https://nodejs.org/
 and [Python 3.12+](https://www.python.org/downloads/).
 
 ```bash
-git clone https://github.com/wwwescape/VideoGameTrackarr.git
-cd VideoGameTrackarr
+git clone https://github.com/dolcetheleche/Sleepoverr.git
+cd Sleepoverr
 npm install
 cd backend
 python -m venv .venv
@@ -247,10 +251,13 @@ See [docs/developer-guide.md](docs/developer-guide.md) for conventions, and
 
 ## License
 
-GPL-3.0 — see [LICENSE](LICENSE).
+GPL-3.0 — see [LICENSE](LICENSE). Sleepoverr is a fork of
+[VideoGameTrackarr](https://github.com/wwwescape/VideoGameTrackarr) by
+[wwwescape](https://github.com/wwwescape), also GPL-3.0; the original copyright notices are kept.
 
 ## Support
 
-If you find VideoGameTrackarr useful, consider buying me a coffee:
+Sleepoverr builds on VideoGameTrackarr. If you find it useful, consider buying its original author
+a coffee:
 
 [<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="40" />](https://buymeacoffee.com/wwwescape)

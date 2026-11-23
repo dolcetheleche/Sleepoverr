@@ -112,7 +112,7 @@ describe("PlatformsPage", () => {
   });
 
   it("sorts by most games (owned plus wishlisted)", () => {
-    window.sessionStorage.setItem("vgt.view.platforms.sortBy", JSON.stringify({ field: "games", direction: "desc" }));
+    window.sessionStorage.setItem("sleepoverr.view.platforms.sortBy", JSON.stringify({ field: "games", direction: "desc" }));
     renderPage();
 
     expect(cardNames()).toEqual(["Nintendo Switch", "PlayStation 5", "Atari Jaguar"]);
@@ -224,7 +224,7 @@ describe("PlatformsPage toolbar", () => {
     expect(within(row).getByText("2")).toBeInTheDocument();
     expect(within(row).getByText("1")).toBeInTheDocument();
     expect(screen.queryAllByTestId("grid-item")).toHaveLength(0);
-    expect(localStorage.getItem("vgt.pref.platforms.view")).toBe(JSON.stringify("table"));
+    expect(localStorage.getItem("sleepoverr.pref.platforms.view")).toBe(JSON.stringify("table"));
 
     await user.click(row);
     expect(screen.getByText("Platform page ps5")).toBeInTheDocument();
@@ -238,7 +238,7 @@ describe("PlatformsPage toolbar", () => {
     await user.click(screen.getByRole("menuitem", { name: "Games" }));
 
     expect(cardNames()).toEqual(["Nintendo Switch", "PlayStation 5"]);
-    expect(window.sessionStorage.getItem("vgt.view.platforms.sortBy")).toBe(
+    expect(window.sessionStorage.getItem("sleepoverr.view.platforms.sortBy")).toBe(
       JSON.stringify({ field: "games", direction: "desc" })
     );
   });

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-const PREFIX = "vgt.pref.";
+const PREFIX = "sleepoverr.pref.";
 
 // A display preference kept in this browser across visits (a list's view mode, card size),
 // unlike useSessionState, which forgets when the tab closes. Storage can throw (private mode,

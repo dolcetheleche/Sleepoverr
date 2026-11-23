@@ -138,7 +138,7 @@ describe("CatalogBrowseGrid", () => {
     await user.keyboard("{Escape}");
 
     expect(cardNames()).toEqual(["Zelda", "Zelda II"]);
-    expect(window.sessionStorage.getItem("vgt.view.collection.zelda.showMissing")).toBe("true");
+    expect(window.sessionStorage.getItem("sleepoverr.view.collection.zelda.showMissing")).toBe("true");
   });
 
   it("includes add-ons from the Options menu as their own section", async () => {

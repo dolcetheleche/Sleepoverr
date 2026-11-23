@@ -79,7 +79,7 @@ function renderPage() {
   return userEvent.setup();
 }
 
-const session = (name: string) => JSON.parse(window.sessionStorage.getItem(`vgt.view.games.${name}`) ?? "null");
+const session = (name: string) => JSON.parse(window.sessionStorage.getItem(`sleepoverr.view.games.${name}`) ?? "null");
 
 describe("OverviewPage", () => {
   beforeEach(() => {
@@ -122,7 +122,7 @@ describe("OverviewPage", () => {
   });
 
   it("opens the Games list filtered to owned games, replacing remembered filters", async () => {
-    window.sessionStorage.setItem("vgt.view.games.tagIds", JSON.stringify([3]));
+    window.sessionStorage.setItem("sleepoverr.view.games.tagIds", JSON.stringify([3]));
     const user = renderPage();
 
     await user.click(screen.getByRole("button", { name: /Games owned/ }));
@@ -186,7 +186,7 @@ describe("OverviewPage", () => {
     playing = [];
     renderPage();
 
-    expect(screen.getByText("Welcome to VideoGameTrackarr")).toBeInTheDocument();
+    expect(screen.getByText("Welcome to Sleepoverr")).toBeInTheDocument();
     expect(screen.getByText("Nothing marked Playing yet.")).toBeInTheDocument();
   });
 

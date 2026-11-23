@@ -1,6 +1,6 @@
 # Toys-to-Life reference catalog — amiibo, Skylanders, Disney Infinity, LEGO Dimensions
 
-Every Toys-to-Life item VideoGameTrackarr tracks or plans to track. **LEGO Dimensions** is tracked: its packs are seeded from `docs/data/toys_to_life/LEGO_Dimensions_Packs.csv` into the `toys_to_life_items` table. The other lines are still a reference listing the app doesn't read yet.
+Every Toys-to-Life item Sleepoverr tracks or plans to track. **LEGO Dimensions** is tracked: its packs are seeded from `docs/data/toys_to_life/LEGO_Dimensions_Packs.csv` into the `toys_to_life_items` table. The other lines are still a reference listing the app doesn't read yet.
 
 **On the game page**, a line's base game (LEGO Dimensions, IGDB 11077) shows a **Toys to Life** section with its packs instead of Addons; starter kits are per platform, so only those for the platforms you own the game on appear there (the line's own page lists all of them). IGDB also lists most packs as add-ons of the base game: a game row whose IGDB ID matches a pack's is hidden from every add-on list (a game's Addons, Missing Addons, and the add-ons on Collection, Series and Platform pages) but not deleted, and importing or resyncing the game skips those add-ons.
 

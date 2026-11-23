@@ -63,9 +63,9 @@ def announce_setup_code(db: Session) -> None:
     if db.query(User).count() > 0:
         return
     if get_settings().setup_code:
-        logger.warning("No account yet. Open VideoGameTrackarr and use your SETUP_CODE to create one.")
+        logger.warning("No account yet. Open Sleepoverr and use your SETUP_CODE to create one.")
         return
-    logger.warning("No account yet. Open VideoGameTrackarr and enter this setup code: %s", get_setup_code())
+    logger.warning("No account yet. Open Sleepoverr and enter this setup code: %s", get_setup_code())
 
 
 def _normalise_code(code: str) -> str:

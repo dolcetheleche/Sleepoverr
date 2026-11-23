@@ -10,12 +10,13 @@ import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Trans, useTranslation } from "react-i18next";
+import { APP_NAME, REPO_URL, UPSTREAM_AUTHOR, UPSTREAM_AUTHOR_URL, UPSTREAM_NAME, UPSTREAM_URL } from "../appName";
 import igdbLogo from "../assets/services/igdb.png";
 import { useEmulationConfig } from "../hooks/useLibrary";
 import { useVersion } from "../hooks/useVersion";
 import Page from "./Page";
 
-const REPO_URL = "https://github.com/wwwescape/VideoGameTrackarr";
+// The original author's Buy Me A Coffee, kept from upstream.
 const BMC_URL = "https://buymeacoffee.com/wwwescape";
 const EMULATORJS_URL = "https://github.com/EmulatorJS/EmulatorJS";
 const LIBRETRO_URL = "https://www.libretro.com";
@@ -34,7 +35,7 @@ const About = () => {
         <CardContent>
           <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 1 }}>
             <Box component="img" src="/icon-master.svg" alt="" sx={{ width: 48, height: 48 }} />
-            <Typography variant="subtitle1">{t("about.appName")}</Typography>
+            <Typography variant="subtitle1">{APP_NAME}</Typography>
           </Stack>
           {version && (
             <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
@@ -87,10 +88,14 @@ const About = () => {
             </Link>
           </Typography>
           <Typography variant="body2">
-            {t("about.authorLabel")}{" "}
-            <Link href="https://github.com/wwwescape" target="_blank" rel="noopener noreferrer">
-              {t("about.authorName")}
-            </Link>
+            <Trans
+              i18nKey="about.forkedFrom"
+              values={{ upstream: UPSTREAM_NAME, author: UPSTREAM_AUTHOR }}
+              components={{
+                1: <Link href={UPSTREAM_URL} target="_blank" rel="noopener noreferrer" />,
+                2: <Link href={UPSTREAM_AUTHOR_URL} target="_blank" rel="noopener noreferrer" />,
+              }}
+            />
           </Typography>
 
           <Divider sx={{ my: 3 }} />

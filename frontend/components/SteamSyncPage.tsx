@@ -122,7 +122,7 @@ const formatHours = (minutes: number) => (minutes / 60).toFixed(1);
 
 type SyncSort = "name" | "steam_status" | "steam_playtime" | "vgt_playtime" | "vgt_status";
 
-// The status chip's label key for a row (the VGT Status column).
+// The status chip's label key for a row (the Sleepoverr Status column).
 const statusLabelKey = (row: SyncRow) =>
   row.source === "owned" ? OWNED_STATUS_CHIP[row.entry.status].labelKey : WISHLIST_STATUS_CHIP[row.entry.status].labelKey;
 

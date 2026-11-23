@@ -46,7 +46,7 @@ async def _refresh(db: Session, report_progress: Callable[[int, int], None]) -> 
     settings = get_settings()
     if not settings.platprices_api_key:
         raise PlatPricesNotConfiguredError(
-            "PlatPrices isn't configured yet — set PLATPRICES_API_KEY in .env and restart VideoGameTrackarr."
+            "PlatPrices isn't configured yet — set PLATPRICES_API_KEY in .env and restart Sleepoverr."
         )
 
     client = PlatPricesClient(api_key=settings.platprices_api_key)

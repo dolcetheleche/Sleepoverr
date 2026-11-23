@@ -22,7 +22,7 @@ export function useExportBackup() {
         return;
       }
       const blob = await exportBackupBlob();
-      downloadBlob(blob, "videogametrackarr-backup.json");
+      downloadBlob(blob, "sleepoverr-backup.json");
     },
   });
 }
